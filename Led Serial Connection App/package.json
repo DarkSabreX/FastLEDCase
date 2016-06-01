@@ -1,0 +1,15 @@
+{
+  "name": "led-serial-connection-app",
+  "version": "0.0.0",
+  "description": "Led Serial Connection App",
+  "main": "app.js",
+  "author": {
+    "name": "DarkSabre X",
+    "email": ""
+  },
+  "dependencies": {
+    "bower": "^1.7.9",
+    "nw": "^0.15.0",
+    "serial-node": "0.0.10"
+  }
+}
