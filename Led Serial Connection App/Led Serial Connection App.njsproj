@@ -12,7 +12,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e8a1a0f8-5f1d-4353-882d-9c0fd9d86a01</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app.js</StartupFile>
+    <StartupFile>server.js</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -30,9 +30,29 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app.js" />
+    <Compile Include="public\scripts\controllers\sidenavcontroller.js" />
+    <Compile Include="public\scripts\services\serialportfactory.js" />
+    <Compile Include="public\scripts\services\socketmsgfactory.js" />
+    <Compile Include="server.js" />
+    <Compile Include="public\scripts\app.js" />
+    <Compile Include="public\scripts\controllers\portselectcontroller.js" />
+    <Compile Include="public\scripts\controllers\socketcommcontroller.js" />
+    <Compile Include="public\scripts\services\socketfactory.js" />
     <Content Include="package.json" />
+    <Content Include="public\index.html" />
+    <Content Include="public\styles\css\main.css" />
+    <Content Include="public\views\comsel.tmpl.html" />
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="public\" />
+    <Folder Include="public\scripts\controllers\" />
+    <Folder Include="public\scripts\directives\" />
+    <Folder Include="public\scripts\services\" />
+    <Folder Include="public\styles\css\" />
+    <Folder Include="public\views\" />
+    <Folder Include="public\styles\" />
+    <Folder Include="public\scripts\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

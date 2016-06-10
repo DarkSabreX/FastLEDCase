@@ -1,0 +1,21 @@
+﻿<md-dialog layout-padding>
+    <md-dialog-content>
+        <div>
+            <span>First, select a port</span>
+            <br />
+            <md-input-container>
+                <label>Select a Port</label>
+                <md-select ng-model="comSelected" md-on-close="dc.comList.setComPort(comSelected)">
+                    <md-option ng-repeat="comName in dc.comList.showComList()">{{comName.comName}}</md-option>
+                </md-select>
+            </md-input-container>
+            <br />
+            <span ng-hide="!comSelected">Now just confirm your settings, and begin the light show!</span>
+    </md-dialog-content>
+    <md-dialog-actions>
+        
+            <br />
+            <md-button ng-click="dc.finalPortSet()" ng-hide="!comSelected">Engage!</md-button>
+        </div>
+    </md-dialog-actions>
+</md-dialog>

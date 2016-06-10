@@ -1,0 +1,50 @@
+﻿/*
+	Inspired by this codepen: http://codepen.io/khadkamhn/pen/VLrrmv
+
+*/
+
+body{
+	//margin:0;
+	color:#444;
+	//background:#5cffbd;
+	//font:300 18px/18px Roboto, sans-serif;
+}
+
+
+.ledctrl{
+	//min-width:480px;
+	//margin:1% auto 0;
+	//position:relative;
+	background:#f5feff;
+  //box-shadow:0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+}
+.ledctrl .notif-banner {
+	min-height:165px;
+	//position:relative;
+	background:#00bcd4;
+}
+.ledctrl .notif-banner .bannerMsg{
+	text-align:center;
+}
+.ledctrl .notif-banner .bannerMsg .bigMsg{
+	color:#f5feff;
+	font-size:72px;
+	font-weight:100;
+	padding-top:35px;
+	line-height:72px;
+}
+.ledctrl .notif-banner .bannerMsg .lilMsg{
+	color:#007c8d;
+	font-weight:400;
+	padding-top:10px;
+}
+.ledctrl .consoleBar{
+	color:#f5feff;
+	font-size:11px;
+	font-weight:400;
+	line-height:11px;
+	background:#616161;
+	padding:10px 20px;
+	text-transform:uppercase;
+	box-shadow:0 2px 4px -1px rgba(0,0,0,.4) inset;
+}

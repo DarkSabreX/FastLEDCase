@@ -12,6 +12,7 @@ Inside strips are separated into x strips in different zones.
 Using CRGBSets to animate sections corresponding to their location in the case.
 Serial data can be received to change variables such as the mode, color, and the palette
 
+
 */
 
 /*------------------------------------------------------------------------------------------
@@ -24,9 +25,8 @@ Serial data can be received to change variables such as the mode, color, and the
 #endif
 
 //Fixed Definitions
-//#define DATA_PIN           7
-//#define CLK_PIN            14
 
+//Define the data and clock lines each array is running from.
 //Exterior Strip Pins
 #define EDATA_PIN           7
 #define ECLK_PIN            14
@@ -34,14 +34,14 @@ Serial data can be received to change variables such as the mode, color, and the
 #define IDATA_PIN          11
 #define ICLK_PIN           13
 
+//My strips don't like anything above 12
 #define MHZRATE            DATA_RATE_MHZ(12)
 #define COLOR_ORDER        BGR
 
 #define FRAMES_PER_SECOND  100
 
-//#define NUM_LEDS 268
-
-#define ENUM_LEDS 300
+//Define number of leds for each array. E for exterior, I for interior
+#define ENUM_LEDS 268
 #define INUM_LEDS 144
 
 
@@ -73,9 +73,24 @@ Serial data can be received to change variables such as the mode, color, and the
 #define EL_END       134
 #define EL_LENGTH    134
 
+// -Interior Strips
 #define I_START      0
 #define I_END        143
 #define I_LENGTH     144
+// --Big Window Top
+
+// --Lil Window Top
+
+// --Big Window Bottom
+
+//  --Lil Window Bottom
+
+// Strip Groups
+// -Outside Strips
+// -Inside Strips
+// --Big Window
+
+// --Lil Window
 
 //----------------------- Palettes ---------------------------------------------------------
 // Gradient palette "bhw1_14_gp", originally from
@@ -94,21 +109,7 @@ DEFINE_GRADIENT_PALETTE(bhw1_14_gp) {
 		233, 2, 1, 5,
 		255, 0, 0, 0
 };
-// -Inside Strips
-// --Big Window Top
 
-// --Lil Window Top
-
-// --Big Window Bottom
-
-//  --Lil Window Bottom
-
-// Strip Groups
-// -Outside Strips
-// -Inside Strips
-// --Big Window
-
-// --Lil Window
 
 //Global Vairables
 CRGBPalette16 gPal;
@@ -119,24 +120,20 @@ uint8_t gHue = 0;
 uint8_t gSat = 255;
 uint8_t gBrt = 128;
 
-//CRGB LED Array
-//CRGBArray<NUM_LEDS> leds;
-
-
+//Define the CRGB Arrays for each strip
 CRGBArray<ENUM_LEDS> eleds;
 CRGBArray<INUM_LEDS> ileds;
 
 
 //Individual CRGBSets for each strip and strip group
+//Exterior
 CRGBSet topRight(eleds(TR_START, TR_END));
 CRGBSet frontRight(eleds(FR_START, FR_END));
-CRGBSet outsideRight(eleds(TR_START, FR_END));
-//CRGBSet outsideRight(leds(OR_START, OR_END));
+CRGBSet extRight(eleds(ER_START, ER_END));
 
 CRGBSet frontLeft(eleds(FL_START, FL_END));
 /*
 CRGBSet topLeft(leds(TL_START, TL_END));
-CRGBSet frontLeft(leds(FL_START, FL_END));
 CRGBSet outsideLeft(leds(OL_START, OL_END));
 */
 CRGBSet inside(ileds(I_START, I_END));
@@ -153,7 +150,9 @@ byte inbyte;                                                  // Serial input by
 int thisarg;                                                  // Serial input argument
 bool leftSide = 1;
 bool rightSide = 0;
-															  // Generic variables
+
+
+// Generic variables
 uint8_t thisdelay = 0;                                        // Standard delay
 uint8_t thishue = 0;                                          // Standard hue
 uint8_t thissat = 255;                                        // Standard saturation
@@ -164,8 +163,30 @@ bool thisdir = 0;                                             // Standard direct
 
 //Pattern Variables
 
-//Confetti
+//fire
+bool isExternal = 1;
+bool isInternal = 0;
 
+//One Sine Pal
+#define qsubd(x, b)  ((x>b)?wavebright:0)                     // Digital unsigned subtraction macro. if result <0, then => 0. Otherwise, take on fixed value.
+#define qsuba(x, b)  ((x>b)?x-b:0)                            // Analog Unsigned subtraction macro. if result <0, then => 0
+uint8_t wavebright = 128;                                     // You can change the brightness of the waves/bars rolling across the screen.
+uint8_t onesinehue = 0;                                          // You can change the starting hue value for the first wave.
+uint8_t onesinerot = 1;                                          // You can change how quickly the hue rotates for this wave. Currently 0.
+uint8_t onesinesat = 255;                                         // I like 'em fully saturated with colour.
+int8_t onesinespeed = 8;                                         // You can change the speed of the wave, and use negative values.
+uint8_t onesinefreq = 32;                                         // You can change the frequency, thus distance between bars.
+int onesinephase = 0;                                            // Phase change value gets calculated.
+uint8_t onesinecutoff = 192;                                     // You can change the cutoff value to display this wave. Lower value = longer wave.
+int onesinedelay = 30;                                           // You can change the delay. Also you can change the allspeed variable above. 
+uint8_t bgclr = 0;                                            // A rotating background colour.
+uint8_t bgbright = 0;                                        // Brightness of background colour
+uint8_t bgclrinc = 0;
+
+// Palette definitions
+CRGBPalette16 currentPalette;
+CRGBPalette16 targetPalette;
+TBlendType    currentBlending;
 
 //Patterns to include
 #include "confetti.h"
@@ -177,6 +198,7 @@ bool thisdir = 0;                                             // Standard direct
 #include "bpm.h"
 #include "fire.h"
 #include "lightning.h"
+#include "onesine.h"
 
 /*------------------------------------------------------------------------------------------
 --------------------------------------- Start of code --------------------------------------
@@ -195,6 +217,9 @@ void setup() {
 	random16_set_seed(4832);                                    // Awesome randomizer
 	random16_add_entropy(analogRead(2));
 	//int ranstart = random16();
+	currentPalette = CRGBPalette16(CRGB::Black);
+	targetPalette = RainbowColors_p;
+	currentBlending = LINEARBLEND;
 
 	Serial.println("---SETUP COMPLETE---");
 	change_mode(ledMode, 1);                                    // Initialize the first sequence
@@ -228,6 +253,7 @@ void change_mode(int newMode, int mc) {
 			eleds.fill_solid(CRGB(0, 0, 0));
 			ileds.fill_solid(CRGB(0, 0, 0));
 			FastLED.show();
+			Serial.println("---Mode 0 - off---");
 			break;
 			/*drawConfetti(frontRight, FR_LENGTH); 
 			drawJuggle(topRight, TR_LENGTH); 
@@ -272,7 +298,18 @@ void change_mode(int newMode, int mc) {
 			drawRainbowChase(topRight, TR_LENGTH); 
 			drawRbowBpm(frontRight, FR_LENGTH, rightSide);
 			drawBreath(frontLeft);
-			drawBreath(inside);
+			ChangeMe();
+
+			EVERY_N_MILLISECONDS(100) {
+				uint8_t maxChanges = 24;
+				nblendPaletteTowardPalette(currentPalette, targetPalette, maxChanges);   // AWESOME palette blending capability.
+			}
+
+			EVERY_N_MILLISECONDS(thisdelay) {                           // FastLED based non-blocking delay to update/display the sequence.
+				static uint8_t startIndex = 0;
+				startIndex = startIndex + onesinerot;                              // Motion speed
+				one_sine_pal(inside, I_LENGTH, startIndex);
+			};
 			FastLED.show(); 
 			FastLED.delay(1000 / FRAMES_PER_SECOND); 
 			break;

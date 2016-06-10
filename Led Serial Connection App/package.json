@@ -8,8 +8,21 @@
     "email": ""
   },
   "dependencies": {
-    "bower": "^1.7.9",
-    "nw": "^0.15.0",
-    "serial-node": "0.0.10"
+    "angular": "^1.5.6",
+    "angular-animate": "^1.5.6",
+    "angular-aria": "^1.5.6",
+    "angular-io": "0.0.3",
+    "angular-material": "^1.1.0-rc.5",
+    "angular-material-icons": "^0.7.0",
+    "angular-messages": "^1.5.6",
+    "angular-socket-io": "^0.7.0",
+    "body-parser": "^1.15.1",
+    "browser-logger": "^1.0.0",
+    "express": "^4.13.4",
+    "method-override": "^2.3.6",
+    "morgan": "^1.7.0",
+    "serialport": "^3.1.2",
+    "socket.io": "^1.4.6",
+    "svg-morpheus": "^0.3.0"
   }
 }

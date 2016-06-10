@@ -64,6 +64,7 @@ typedef void *__builtin_va_list;
 #include <fire.h>
 #include <juggle.h>
 #include <lightning.h>
+#include <onesine.h>
 #include <rainbow.h>
 #include <rainbowchase.h>
 #endif
