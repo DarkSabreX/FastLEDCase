@@ -6,6 +6,7 @@
     <title>White Queen LED Controls</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="/angular/angular-material.css" />
+    <link href="/angular/v-accordion.css" rel="stylesheet" />
     <link rel="stylesheet" href="/styles/css/main.css" />
 </head>
 <body ng-app="wqLed">
@@ -27,7 +28,7 @@
             <!--Content Wrapper-->
             <md-content layout="row" ng-controller="SocketCommunicationController as led" flex>
                 <!--Left SideNav-->
-                <md-sidenav md-component-id="left" class="md-sidenav-left">             
+                <md-sidenav md-component-id="left" class="md-sidenav-left">
                     <md-card>
                         <md-card-header>
                             <md-card-header-text>
@@ -88,32 +89,24 @@
                     <md-content layout-padding>
                         <span>Mode Select</span>
                         <md-divider></md-divider>
-                        <md-list class="md-dense" flex>
-                            <md-subheader class="md-no-sticky">Static Modes</md-subheader>
-                            <md-list-item class="md-3-line">
-                                <md-button class="md-raised md-primary" ng-click="led.sockMsg.modeChg('m0')">Mode 0</md-button>
-                                <div class="md-list-item-text" layout="column">
-                                    <h3>Mode 0</h3>
-                                    <h4>All lights off</h4>
-                                    <p></p>
-                                </div>
-                            </md-list-item>
-                            <md-subheader class="md-no-sticky">Basic Fill Modes</md-subheader>
-                            <md-list-item class="md-3-line">
-                                <md-button class="md-raised md-primary" ng-click="led.sockMsg.modeChg('m0')">Mode 0</md-button>
-                                <div class="md-list-item-text" layout="column">
-                                    <h3>Mode 0</h3>
-                                    <h4>All lights off</h4>
-                                    <p></p>
-                                </div>
-                            </md-list-item>
-                            <md-subheader class="md-no-sticky">Rainbow Animated Modes</md-subheader>
-                        </md-list>
+                        <!-- add `multiple` attribute to allow multiple sections to open at once -->
+                        <v-accordion class="vAccordion--default">
 
-                            <md-button class="md-raised md-primary" ng-click="led.sockMsg.modeChg('m6')">Mode 6</md-button><br>
-
-                        
-
+                            <!-- add expanded attribute to open the section -->
+                            <v-pane layout="column" ng-repeat="group in snav.modeList.groups track by group.id" expanded="group.isExpanded">
+                                <v-pane-header flex>
+                                    {{group.title}}
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <div layout="column">
+                                        <md-button class="md-raised md-primary" flex ng-repeat="mode in group.modes" ng-click="led.sockMsg.modeChg('{{mode.code}}')">
+                                            <ng-md-icon icon="{{mode.icon.name}}" ng-style="{'fill': '{{mode.icon.fill}}'}"></ng-md-icon>
+                                            {{mode.desc}}
+                                        </md-button>
+                                    </div>                                   
+                                </v-pane-content>
+                            </v-pane>
+                        </v-accordion>
                     </md-content>
                 </md-sidenav>
                 <!--/Right SideNav-->
@@ -127,6 +120,7 @@
     <script src="/angular/angular-animate.js"></script>
     <script src="/angular/angular-aria.js"></script>
     <script src="/angular/angular-messages.js"></script>
+    <script src="/angular/v-accordion.js"></script>
     <script src="/angular/socket.js"></script>
     <script src="/angular/angular-material.js"></script>
     <script src="/angular/angular-material-icons.js"></script>
@@ -137,6 +131,7 @@
     <script src="/scripts/controllers/socketcommcontroller.js"></script>
     <script src="/scripts/controllers/sidenavcontroller.js"></script>
     <script src="/scripts/controllers/portselectcontroller.js"></script>
+    <script src="/scripts/objects/modelist.js"></script>
 
 </body>
 </html>

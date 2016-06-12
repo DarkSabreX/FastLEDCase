@@ -7,6 +7,7 @@ angular.module( 'wqLed' )
 		var snav = this;
 		var test = 'arrow_back';
 		snav.comList = comList;
+		snav.modeList = modeList;
 
 		snav.leftNavIcon = 'settings';
 		snav.rightNavIcon = 'menu';

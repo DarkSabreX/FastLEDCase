@@ -4,5 +4,7 @@
 angular.module( 'wqLed', [
 	'btford.socket-io',
 	'ngMaterial',
-	'ngMdIcons'
+	'ngMdIcons',
+	'ngAnimate',
+	'vAccordion'
 ] );

@@ -31,6 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="public\scripts\controllers\sidenavcontroller.js" />
+    <Compile Include="public\scripts\objects\modelist.js" />
+    <Compile Include="public\scripts\services\modefactory.js" />
     <Compile Include="public\scripts\services\serialportfactory.js" />
     <Compile Include="public\scripts\services\socketmsgfactory.js" />
     <Compile Include="server.js" />
@@ -40,6 +42,7 @@
     <Compile Include="public\scripts\services\socketfactory.js" />
     <Content Include="package.json" />
     <Content Include="public\index.html" />
+    <Content Include="public\scripts\objects\modelist.json" />
     <Content Include="public\styles\css\main.css" />
     <Content Include="public\views\comsel.tmpl.html" />
     <Content Include="README.md" />
@@ -48,6 +51,7 @@
     <Folder Include="public\" />
     <Folder Include="public\scripts\controllers\" />
     <Folder Include="public\scripts\directives\" />
+    <Folder Include="public\scripts\objects\" />
     <Folder Include="public\scripts\services\" />
     <Folder Include="public\styles\css\" />
     <Folder Include="public\views\" />

@@ -16,6 +16,7 @@
     "angular-material-icons": "^0.7.0",
     "angular-messages": "^1.5.6",
     "angular-socket-io": "^0.7.0",
+    "angular-ui-router": "^0.3.1",
     "body-parser": "^1.15.1",
     "browser-logger": "^1.0.0",
     "express": "^4.13.4",
@@ -23,6 +24,7 @@
     "morgan": "^1.7.0",
     "serialport": "^3.1.2",
     "socket.io": "^1.4.6",
-    "svg-morpheus": "^0.3.0"
+    "svg-morpheus": "^0.3.0",
+    "v-accordion": "^1.6.0"
   }
 }

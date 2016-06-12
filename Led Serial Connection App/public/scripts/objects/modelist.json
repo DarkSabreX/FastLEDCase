@@ -1,0 +1,45 @@
+﻿{
+  "groups": [
+    {
+      "group": "noAnim",
+      "id": "1",
+      "title": "Static Modes",
+      "modelist": [
+        {
+          "id": "",
+          "mode": "",
+          "code": "",
+          "icon": {
+            "name": "",
+            "color": ""
+          }
+        },
+        {
+          "id": "",
+          "mode": "",
+          "code": "",
+          "icon": {
+            "name": "",
+            "color": ""
+          }
+        }
+      ]
+    },
+    {
+      "group": "animFill",
+      "id": "2",
+      "title": "Static Modes",
+      "modelist": [
+        {
+          "id": "",
+          "mode": "",
+          "code": "",
+          "icon": {
+            "name": "",
+            "color": ""
+          }
+        }
+      ]
+    }
+  ]
+}
