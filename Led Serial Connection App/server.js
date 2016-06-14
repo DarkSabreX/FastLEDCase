@@ -26,6 +26,7 @@ app.use( '/angular', express.static( __dirname + '/node_modules/angular-material
 app.use( '/angular', express.static( __dirname + '/node_modules/angular-material-icons' ) );     // set static files location for material icons
 app.use( '/angular', express.static( __dirname + '/node_modules/svg-morpheus/compile/unminified' ) );
 app.use( '/angular', express.static( __dirname + '/node_modules/v-accordion/dist' ) );
+app.use( '/angular', express.static( __dirname + '/node_modules/angular-ui-router/release' ) );
 
 
 app.use( morgan( 'dev' ) ); 					// log every request to the console

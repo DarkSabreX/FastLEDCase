@@ -234,3 +234,9 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/Led Serial Connection App/public/views/partials/leftnav.html
+/Led Serial Connection App/public/views/partials/maincontainer.html
+/Led Serial Connection App/public/views/partials/maincontent.html
+/Led Serial Connection App/public/views/partials/rightnav.html
+/Led Serial Connection App/public/views/modedetail.tmpl.html
+/Led Serial Connection App/public/index-route.html

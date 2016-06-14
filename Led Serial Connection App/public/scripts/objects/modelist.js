@@ -24,7 +24,7 @@
 					desc: 'All On - White',
 					icon: {
 						name: 'brightness_high',
-						fill: 'white'
+						fill: 'gray'
 					}
 				},
 				{
@@ -34,8 +34,21 @@
 					desc: 'All On - Selectable',
 					icon: {
 						name: 'brightness_high',
-						fill: 'white'
-					}
+						fill: 'gray'
+					},
+					controls: [{
+							name: 'color',
+							isAvail: 'yes'
+						},
+						{
+							name: 'speed',
+							isAvail: 'yes'
+						},
+						{
+							name: 'direction',
+							isAvail: 'no'
+						}
+					]
 				}]
 		},
 		{
@@ -57,7 +70,7 @@
 				{
 					mode: '7',
 					name: 'Mode 7',
-					code: 'm0',
+					code: 'm7',
 					desc: 'test content',
 					icon: {
 						name: 'brightness_high',

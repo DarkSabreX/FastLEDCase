@@ -2,19 +2,22 @@
 
 angular.module( 'wqLed' )
 
-  .factory('modeList', function ($http)
+  .factory( 'modeList',['sockMsg', function ( $http, $filter, sockMsg )
 {
 	var modeList = this;
+	modeList.selectedModeId = '0';
+	modeList.selectedMode = [];
 	
-	modeList.getModes = function ()
+	modeList.setMode = function ( mode )
 	{
-		$http.get( '/scripts/objects/modelist.json' )
-		.success( function ( data )
-		{
-			modeList.modeGroup = data;
-		} );
-		return modeList.modeGroup;
-	};
+		modeList.selectedModeId = mode;
 
+	}
+	
+	modeList.getMode = function ()
+	{
+		return modeList.selectedModeId;
+	}
+	
 	return modeList;
-} )
+} ]);

@@ -30,7 +30,10 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="public\scripts\controllers\photoncontroller.js" />
     <Compile Include="public\scripts\controllers\sidenavcontroller.js" />
+    <Compile Include="public\scripts\filters\modeoptionfilter.js" />
+    <Compile Include="public\scripts\objects\controlrouteconfig.js" />
     <Compile Include="public\scripts\objects\modelist.js" />
     <Compile Include="public\scripts\services\modefactory.js" />
     <Compile Include="public\scripts\services\serialportfactory.js" />
@@ -41,22 +44,31 @@
     <Compile Include="public\scripts\controllers\socketcommcontroller.js" />
     <Compile Include="public\scripts\services\socketfactory.js" />
     <Content Include="package.json" />
+    <Content Include="public\index-route.html" />
     <Content Include="public\index.html" />
     <Content Include="public\scripts\objects\modelist.json" />
     <Content Include="public\styles\css\main.css" />
     <Content Include="public\views\comsel.tmpl.html" />
+    <Content Include="public\views\modedetail.tmpl.html" />
+    <Content Include="public\views\partials\leftnav.html" />
+    <Content Include="public\views\partials\maincontainer.html" />
+    <Content Include="public\views\partials\maincontent.html" />
+    <Content Include="public\views\partials\rightnav.html" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />
     <Folder Include="public\scripts\controllers\" />
     <Folder Include="public\scripts\directives\" />
+    <Folder Include="public\scripts\filters\" />
     <Folder Include="public\scripts\objects\" />
     <Folder Include="public\scripts\services\" />
     <Folder Include="public\styles\css\" />
     <Folder Include="public\views\" />
     <Folder Include="public\styles\" />
     <Folder Include="public\scripts\" />
+    <Folder Include="public\views\partials\" />
+    <Folder Include="public\views\templates\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

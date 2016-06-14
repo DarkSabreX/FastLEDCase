@@ -9,6 +9,14 @@ body{
 	//background:#5cffbd;
 	//font:300 18px/18px Roboto, sans-serif;
 }
+.modeSelPanel .row {
+  border-bottom: 1px dashed #ddd; }
+.modeSelPanel div.row:last-child {
+  border-bottom: 0px dashed #ddd; }
+.modeSelPanel .md-checked {
+  background-color: #ECFAFB;
+  border-radius: 2px; }
+
 .icon-ctr{
 	height: auto;
 }

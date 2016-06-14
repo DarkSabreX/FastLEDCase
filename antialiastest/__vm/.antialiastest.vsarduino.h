@@ -30,6 +30,7 @@ typedef void *__builtin_va_list;
 #define __inline__
 #define __asm__ 
 #define __volatile__
+#define _HAVE_STDC
 
 #define NEW_H
 
@@ -49,10 +50,6 @@ typedef void *__builtin_va_list;
 #define __disable_irq() __asm__ volatile("");
 #define __enable_irq()	__asm__ volatile("");
 
-//#define sei() __enable_irq()
-//#define cli() __disable_irq()
-//#define interrupts() __enable_irq()
-//#define noInterrupts() __disable_irq()
 
 #define NEW_H
 #include <antialiastest.ino>

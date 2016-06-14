@@ -11,7 +11,7 @@
 </head>
 <body ng-app="wqLed">
     <div layout="row" layout-fill>
-        <md-card layout="column" class="ledctrl" ng-controller="SideNavController as snav" flex-offset-gt-sm="25" flex="auto">
+        <md-card layout="column" class="ledctrl" ng-controller="SideNavController as snav" flex-offset-gt-xs="5" flex="auto">
             <!--Toolbar-->
             <md-toolbar class="ledctrlhead" layout="row" layout-align="space-between center">
                 <div class="md-toolbar-tools">
@@ -59,7 +59,44 @@
                         </md-card-content>
                     </md-card>
                 </md-sidenav>
+                <!--Right SideNav-->
 
+                <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" md-disable-backdrop>
+                    <md-content layout-padding>
+                        <span>Mode Select</span>
+                        <md-divider></md-divider>
+                        <!-- add `multiple` attribute to allow multiple sections to open at once -->
+                        <v-accordion class="vAccordion--default">
+
+
+                            <!-- add expanded attribute to open the section -->
+                            <v-pane layout="column" ng-repeat="group in snav.modeList.groups" expanded="group.isExpanded">
+                                <v-pane-header flex>
+                                    {{group.title}}
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <div>
+                                        <div layout="column" class="modeSelPanel">
+                                            <md-radio-group ng-model="snav.modeList.selectedMode" ng-change="snav.sockMsg.modeChg(snav.modeList.selectedMode.code)" >
+                                                <div ng-repeat="mode in group.modes" class="row">
+                                                    <div flex layout="row" layout-padding layout-align="start center">
+                                                        
+                                                        <md-radio-button ng-value="mode" flex class="md-primary">
+                                                            <ng-md-icon icon="{{mode.icon.name}}" ng-style="{'fill': '{{mode.icon.fill}}'}" flex></ng-md-icon>
+                                                            {{mode.name}}
+                                                            <span> - {{mode.desc}}</span>
+                                                        </md-radio-button>
+                                                    </div>                                                    
+                                                </div>
+                                            </md-radio-group>
+                                        </div>
+                                    </div>
+                                </v-pane-content>
+                            </v-pane>
+                        </v-accordion>
+                    </md-content>
+                </md-sidenav>
+                <!--/Right SideNav-->
                 <!--Main Content-->
                 <md-content layout="column" flex>
                     <div class="notif-banner">
@@ -80,36 +117,22 @@
                                 Click here to set the port.
                             </md-button>
                         </div>
-                        <span flex>Options - ui router view will go here and change states based on the mode selected and what options are available</span>
+
+                        <div flex ng-show="led.sockMsg.checkConnect()">
+                            Current Mode:
+                            {{snav.modeList.selectedMode.name}}
+
+                            <ul ng-repeat="control in snav.modeList.selectedMode.controls">
+                                <li>
+                                    {{control.name}}:
+                                    {{control.isAvail}}
+                                </li>
+                            </ul>
+                        </div>
                     </md-content>
                 </md-content>
                 <!--/Main Content-->
-                <!--Right SideNav-->
-                <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" md-disable-backdrop md-is-locked-open="true">
-                    <md-content layout-padding>
-                        <span>Mode Select</span>
-                        <md-divider></md-divider>
-                        <!-- add `multiple` attribute to allow multiple sections to open at once -->
-                        <v-accordion class="vAccordion--default">
 
-                            <!-- add expanded attribute to open the section -->
-                            <v-pane layout="column" ng-repeat="group in snav.modeList.groups track by group.id" expanded="group.isExpanded">
-                                <v-pane-header flex>
-                                    {{group.title}}
-                                </v-pane-header>
-                                <v-pane-content>
-                                    <div layout="column">
-                                        <md-button class="md-raised md-primary" flex ng-repeat="mode in group.modes" ng-click="led.sockMsg.modeChg('{{mode.code}}')">
-                                            <ng-md-icon icon="{{mode.icon.name}}" ng-style="{'fill': '{{mode.icon.fill}}'}"></ng-md-icon>
-                                            {{mode.desc}}
-                                        </md-button>
-                                    </div>                                   
-                                </v-pane-content>
-                            </v-pane>
-                        </v-accordion>
-                    </md-content>
-                </md-sidenav>
-                <!--/Right SideNav-->
             </md-content>
         </md-card>
         <span hide-sm flex="25"></span>
@@ -117,6 +140,7 @@
     <script src="/io/socket.io.js"></script>
     <script src="/angular/svg-morpheus.js"></script>
     <script src="/angular/angular.js"></script>
+    <script src="/angular/angular-ui-router.js"></script>
     <script src="/angular/angular-animate.js"></script>
     <script src="/angular/angular-aria.js"></script>
     <script src="/angular/angular-messages.js"></script>
@@ -125,12 +149,15 @@
     <script src="/angular/angular-material.js"></script>
     <script src="/angular/angular-material-icons.js"></script>
     <script src="/scripts/app.js"></script>
+    <script src="/scripts/filters/modeoptionfilter.js"></script>
     <script src="/scripts/services/serialportfactory.js"></script>
     <script src="/scripts/services/socketfactory.js"></script>
     <script src="/scripts/services/socketmsgfactory.js"></script>
+    <script src="/scripts/services/modefactory.js"></script>
     <script src="/scripts/controllers/socketcommcontroller.js"></script>
     <script src="/scripts/controllers/sidenavcontroller.js"></script>
     <script src="/scripts/controllers/portselectcontroller.js"></script>
+    <script src="/scripts/objects/controlrouteconfig.js"></script>
     <script src="/scripts/objects/modelist.js"></script>
 
 </body>

@@ -253,7 +253,7 @@ void change_mode(int newMode, int mc) {
 			eleds.fill_solid(CRGB(0, 0, 0));
 			ileds.fill_solid(CRGB(0, 0, 0));
 			FastLED.show();
-			Serial.println("---Mode 0 - off---");
+			//Serial.println("---Mode 0 - off---");
 			break;
 			/*drawConfetti(frontRight, FR_LENGTH); 
 			drawJuggle(topRight, TR_LENGTH); 

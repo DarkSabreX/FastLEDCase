@@ -2,12 +2,13 @@
 
 angular.module( 'wqLed' )
 
-  .controller( 'SideNavController', ['$timeout','$mdSidenav','$log','comList', function ( $timeout, $mdSidenav, $log, comList )
+  .controller( 'SideNavController', ['$timeout','$mdSidenav','$log','comList','sockMsg', function ( $timeout, $mdSidenav, $log, comList, sockMsg )
 	{
 		var snav = this;
 		var test = 'arrow_back';
 		snav.comList = comList;
 		snav.modeList = modeList;
+		snav.sockMsg = sockMsg;
 
 		snav.leftNavIcon = 'settings';
 		snav.rightNavIcon = 'menu';
