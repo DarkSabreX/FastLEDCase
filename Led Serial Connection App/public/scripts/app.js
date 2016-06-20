@@ -7,5 +7,5 @@ angular.module( 'wqLed', [
 	'ngMdIcons',
 	'ngAnimate',
 	'vAccordion',
-	'ui.router'
+	'ui.router',
 ] );

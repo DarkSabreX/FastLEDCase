@@ -5,8 +5,9 @@ angular.module( 'wqLed')
   .controller( 'PortSelectController', ['$mdDialog','$mdMedia', 'comList','sockMsg', function ( $mdDialog, $mdMedia, comList, sockMsg)
 	{
 		var pc = this;
-		pc.comList = comList;
 		pc.sockMsg = sockMsg;
+		pc.comList = comList;
+
 		
 		pc.status = '  ';
 		pc.customFullscreen = $mdMedia( 'xs' ) || $mdMedia( 'sm' );
@@ -19,8 +20,8 @@ angular.module( 'wqLed')
 				templateUrl: 'views/comsel.tmpl.html',
 				parent: angular.element( document.body ),
 				locals: {
-					sMsg: pc.sockMsg,
-					cList: pc.comList
+					sockMsg: sockMsg,
+					comList: comList
 				},
 				preserveScope: true,
 				targetEvent: ev,
@@ -28,11 +29,11 @@ angular.module( 'wqLed')
 			} );
 		};
 
-		function DialogController( $mdDialog, sMsg, cList )
+		function DialogController( $mdDialog, sockMsg, comList )
 		{
 			var dc = this;
-			dc.socketMsg = sMsg;
-			dc.comList = cList;
+			dc.sockMsg = sockMsg;
+			dc.comList = comList;
 			dc.hide = function ()
 			{
 				$mdDialog.hide( );
@@ -40,7 +41,7 @@ angular.module( 'wqLed')
 
 			dc.finalPortSet = function ()
 			{
-				dc.socketMsg.selPort( );
+				dc.sockMsg.selPort( );
 				$mdDialog.hide( );
 			};
 		}

@@ -34,8 +34,10 @@
     <Compile Include="public\scripts\controllers\sidenavcontroller.js" />
     <Compile Include="public\scripts\filters\modeoptionfilter.js" />
     <Compile Include="public\scripts\objects\controlrouteconfig.js" />
+    <Compile Include="public\scripts\objects\modearray.js" />
     <Compile Include="public\scripts\objects\modelist.js" />
     <Compile Include="public\scripts\services\modefactory.js" />
+    <Compile Include="public\scripts\services\modeservice.js" />
     <Compile Include="public\scripts\services\serialportfactory.js" />
     <Compile Include="public\scripts\services\socketmsgfactory.js" />
     <Compile Include="server.js" />
@@ -46,6 +48,8 @@
     <Content Include="package.json" />
     <Content Include="public\index-route.html" />
     <Content Include="public\index.html" />
+    <Content Include="public\scripts\objects\modegroups.json" />
+    <Content Include="public\scripts\objects\modes.json" />
     <Content Include="public\scripts\objects\modelist.json" />
     <Content Include="public\styles\css\main.css" />
     <Content Include="public\views\comsel.tmpl.html" />

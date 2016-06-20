@@ -9,7 +9,7 @@
     <link href="/angular/v-accordion.css" rel="stylesheet" />
     <link rel="stylesheet" href="/styles/css/main.css" />
 </head>
-<body ng-app="wqLed">
+<body ng-app="wqLed" ng-controller="PhotonController as photon">
     <div layout="row" layout-fill>
         <md-card layout="column" class="ledctrl" ng-controller="SideNavController as snav" flex-offset-gt-xs="5" flex="auto">
             <!--Toolbar-->
@@ -18,7 +18,7 @@
                     <md-button ng-click="snav.toggleLeft()" class="md-icon-button" ng-show="snav.comList.checkPortSet()">
                         <ng-md-icon icon="{{snav.leftNavIcon}}" style="fill: #ffffff;" size="32" options='{"duration": 300, "rotation": "clock", "easing":"quint-in-out"}'></ng-md-icon>
                     </md-button>
-                    <span flex></span>
+                    <span flex>{{photon.getBufferData}}</span>
                     <md-button ng-click="snav.toggleRight()" class="md-icon-button" ng-show="snav.comList.checkPortSet()">
                         <ng-md-icon icon="{{snav.rightNavIcon}}" style="fill: #ffffff;" size="32" options='{"duration": 300, "rotation": "clock", "easing":"quint-in-out"}'></ng-md-icon>
                     </md-button>
@@ -46,14 +46,15 @@
                         <md-card-content>
                             <div ng-show="led.comList.checkPortSet()">
                                 <md-button class="md-raised md-primary md-fab" ng-click="led.sockMsg.toggleConnect()">
-                                    <ng-md-icon icon="{{led.sockMsg.connIcon}}" style="fill: #ffffff;" options='{"duration": 750, "rotation": "none", "easing":"quint-in-out"}'></ng-md-icon>
+                                    <ng-md-icon icon="{{led.sockMsg.getConnIcon()}}" style="fill: #ffffff;" options='{"duration": 750, "rotation": "none", "easing":"quint-in-out"}'></ng-md-icon>
                                 </md-button>
                                 <br />
                                 <span>Click Here to <span ng-show="led.sockMsg.checkConnect()">dis</span>connect</span>
                             </div>
                             <md-card>
                                 <md-card-content>
-                                    <span>{{led.sockMsg.getBuffer()}}</span>
+                                    <span><b>Console Log:</b></span>
+                                    <span>{{led.sockMsg.getBufferArray()}}</span>
                                 </md-card-content>
                             </md-card>
                         </md-card-content>
@@ -66,33 +67,29 @@
                         <span>Mode Select</span>
                         <md-divider></md-divider>
                         <!-- add `multiple` attribute to allow multiple sections to open at once -->
-                        <v-accordion class="vAccordion--default">
-
-
+                        <v-accordion class="vAccordion--default" multiple>
                             <!-- add expanded attribute to open the section -->
-                            <v-pane layout="column" ng-repeat="group in snav.modeList.groups" expanded="group.isExpanded">
-                                <v-pane-header flex>
+                            <v-pane layout="column" ng-repeat="group in photon.modeGroupArray.groups track by group.id" expanded>
+                                <v-pane-header>
                                     {{group.title}}
                                 </v-pane-header>
                                 <v-pane-content>
-                                    <div>
-                                        <div layout="column" class="modeSelPanel">
-                                            <md-radio-group ng-model="snav.modeList.selectedMode" ng-change="snav.sockMsg.modeChg(snav.modeList.selectedMode.code)" >
-                                                <div ng-repeat="mode in group.modes" class="row">
-                                                    <div flex layout="row" layout-padding layout-align="start center">
-                                                        
-                                                        <md-radio-button ng-value="mode" flex class="md-primary">
-                                                            <ng-md-icon icon="{{mode.icon.name}}" ng-style="{'fill': '{{mode.icon.fill}}'}" flex></ng-md-icon>
-                                                            {{mode.name}}
-                                                            <span> - {{mode.desc}}</span>
-                                                        </md-radio-button>
-                                                    </div>                                                    
-                                                </div>
-                                            </md-radio-group>
-                                        </div>
+                                    <div layout="column" class="modeSelPanel">
+                                        
+                                        <md-radio-group ng-model="led.sockMsg.getModeBuffer().mode" ng-model-options="{getterSetter: true }" ng-change="led.sockMsg.modeChg(photon.modeList[led.sockMsg.getModeBuffer().mode].code)">
+                                            <div ng-repeat="(id, mode) in photon.modeList |filter:group.name track by mode.id" class="row">
+
+                                                <md-radio-button ng-value="mode.id" flex class="md-primary">
+                                                    <div flex><ng-md-icon icon="{{mode.icon.name}}" ng-style="{'fill': '{{mode.icon.fill}}'}" flex></ng-md-icon></div>
+                                                    {{mode.name}} <span> - {{mode.desc}}</span>
+                                                </md-radio-button>
+                                            </div>
+
+                                        </md-radio-group>
                                     </div>
                                 </v-pane-content>
                             </v-pane>
+                            
                         </v-accordion>
                     </md-content>
                 </md-sidenav>
@@ -109,7 +106,7 @@
                         </div>
                         <ng-md-icon icon="arrow_forward" style="fill: #ffffff;" size="36"></ng-md-icon>
                     </div>
-                    <div class="consoleBar">Console: {{led.sockMsg.getBuffer()}}</div>
+                    <div class="consoleBar">Console: {{photon.sockMsg.getConsoleBuffer( )}}</div>
                     <md-content layout="column" flex>
                         <div ng-hide="led.comList.checkPortSet()" ng-controller="PortSelectController as pc" flex>
                             <span style="color: red;">Com Port is not set. </span>
@@ -117,17 +114,66 @@
                                 Click here to set the port.
                             </md-button>
                         </div>
+                        
+                        
+                        
+                        raw array: {{photon.sockMsg.getBufferArray( )}} --
+                        mode buffer:{{photon.sockMsg.getModeBuffer( ).mode}} --
+                        console buffer:{{photon.sockMsg.getConsoleBuffer( ).serial}}
+          
+                        <div >
+                            <div>
+                                
+                            </div>
 
+                        </div>
                         <div flex ng-show="led.sockMsg.checkConnect()">
-                            Current Mode:
-                            {{snav.modeList.selectedMode.name}}
+                            <md-card>
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <md-title>
+                                            Current Mode:
+                                            {{photon.modeList[led.sockMsg.getModeBuffer().mode].name}}
+                                        </md-title>
+                                        <md-subhead>
+                                            {{photon.modeList[led.sockMsg.getModeBuffer().mode].desc}}
+                                        </md-subhead>
+                                    </md-card-header-text>
 
-                            <ul ng-repeat="control in snav.modeList.selectedMode.controls">
-                                <li>
-                                    {{control.name}}:
-                                    {{control.isAvail}}
-                                </li>
-                            </ul>
+                                </md-card-header>
+                                <md-divider></md-divider>
+                                <md-card-content>
+                                    <div>
+                                        <ul ng-repeat="control in photon.modeList[led.sockMsg.getModeBuffer().mode].controls">
+                                            <li ng-if="control.name == 'color'">
+                                                <span>{{control.name}}:</span>
+                                                <md-button ng-click="led.sockMsg.hueChg('0')">
+                                                    Red
+                                                </md-button>
+                                                <md-button ng-click="led.sockMsg.hueChg('42')">
+                                                    Yellow
+                                                </md-button>
+                                                <md-button ng-click="led.sockMsg.hueChg('85')">
+                                                    Green
+                                                </md-button>
+                                                <md-slider-container>
+                                                    <md-slider min="0" max="255" ng-model="photon.currentHue" ng-change="led.sockMsg.hueChg(photon.currentHue)">
+                                                    </md-slider>
+
+                                                </md-slider-container>
+                                            </li>
+                                            <li>
+                                                {{control.name}}:
+                                                {{control.isAvail}}
+                                               
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </md-card-content>
+                            </md-card>
+
+
                         </div>
                     </md-content>
                 </md-content>
@@ -154,6 +200,8 @@
     <script src="/scripts/services/socketfactory.js"></script>
     <script src="/scripts/services/socketmsgfactory.js"></script>
     <script src="/scripts/services/modefactory.js"></script>
+    <script src="/scripts/services/modeservice.js"></script>
+    <script src="/scripts/controllers/photoncontroller.js"></script>
     <script src="/scripts/controllers/socketcommcontroller.js"></script>
     <script src="/scripts/controllers/sidenavcontroller.js"></script>
     <script src="/scripts/controllers/portselectcontroller.js"></script>

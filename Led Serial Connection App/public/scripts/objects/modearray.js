@@ -1,4 +1,8 @@
-﻿var modeListArr = {
+﻿'use strict';
+
+angular.module( 'wqLed' )
+
+.value( 'modeArray', {
 	groups:
  [	
 		{
@@ -8,7 +12,7 @@
 			modes: [
 
 				{
-					id: '0',
+					mode: '0',
 					name: 'Mode 0',
 					code: 'm0',
 					desc: 'All Off',
@@ -18,7 +22,7 @@
 					}
 				},
 				{
-					id: '1',
+					mode: '1',
 					name: 'Mode 1',
 					code: 'm1',
 					desc: 'All On - White',
@@ -28,7 +32,7 @@
 					}
 				},
 				{
-					id: '2',
+					mode: '2',
 					name: 'Mode 2',
 					code: 'm2',
 					desc: 'All On - Static Rainbow',
@@ -54,7 +58,7 @@
 					]
 				},
 				{
-					id: '3',
+					mode: '3',
 					name: 'Mode 3',
 					code: 'm3;h145',
 					desc: 'All On - Selectable Color',
@@ -88,7 +92,7 @@
 			modes: [
 
 				{
-					id: '6',
+					mode: '6',
 					name: 'Mode 6',
 					code: 'm6',
 					desc: 'All wacky right now',
@@ -98,7 +102,7 @@
 					}
 				},
 				{
-					id: '7',
+					mode: '7',
 					name: 'Mode 7',
 					code: 'm7',
 					desc: 'test content',
@@ -109,4 +113,4 @@
 				}]
 		}
 	]
-};
+});

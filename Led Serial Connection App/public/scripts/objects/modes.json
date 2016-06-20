@@ -1,0 +1,114 @@
+﻿[
+  {
+    "id": "0",
+    "name": "Mode 0",
+    "group": "noAnim",
+    "groupid": "1",
+    "groupTitle": "Static Modes",
+    "code": "m0",
+    "desc": "All Off",
+    "icon": {
+      "name": "brightness_high",
+      "fill": "black"
+    }
+  },
+  {
+    "id": "1",
+    "name": "Mode 1",
+    "group": "noAnim",
+    "groupid": "1",
+    "groupTitle": "Static Modes",
+    "code": "m1",
+    "desc": "All On - White",
+    "icon": {
+      "name": "brightness_high",
+      "fill": "gray"
+    }
+  },
+  {
+    "id": "2",
+    "name": "Mode 2",
+    "group": "noAnim",
+    "groupid": "1",
+    "groupTitle": "Static Modes",
+    "code": "m2",
+    "desc": "All On - Static Rainbow",
+    "icon": {
+      "name": "brightness_high",
+      "fill": "gray"
+    },
+    "controls": [
+      {
+        "name": "color",
+        "isAvail": "yes",
+        "value": "171"
+      },
+      {
+        "name": "speed",
+        "isAvail": "yes",
+        "value": "1"
+      },
+      {
+        "name": "direction",
+        "isAvail": "no",
+        "value": "f"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Mode 3",
+    "group": "noAnim",
+    "groupid": "1",
+    "groupTitle": "Static Modes",
+    "code": "m3;h145",
+    "desc": "All On - Selectable Color",
+    "icon": {
+      "name": "brightness_high",
+      "fill": "gray"
+    },
+    "controls": [
+      {
+        "name": "color",
+        "isAvail": "yes",
+        "value": "blue"
+      },
+      {
+        "name": "speed",
+        "isAvail": "yes",
+        "value": "1"
+      },
+      {
+        "name": "direction",
+        "isAvail": "no",
+        "value": "f"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Mode 6",
+    "group": "animFill",
+    "groupid": "2",
+    "groupTitle": "Basic Animated Fills",
+    "code": "m6",
+    "desc": "All wacky right now",
+    "icon": {
+      "name": "brightness_high",
+      "fill": "black"
+    }
+  },
+  {
+    "id": "5",
+    "name": "Mode 7",
+    "group": "animFill",
+    "groupid": "2",
+    "groupTitle": "Basic Animated Fills",
+    "code": "m7",
+    "desc": "test content",
+    "icon": {
+      "name": "brightness_high",
+      "fill": "black"
+    }
+  }
+]

@@ -129,6 +129,10 @@ socketServer.sockets.on( 'connection', function ( socket )
 		{
 			sp.write( new Buffer( data ) );
 		} );
+		socket.on( 'hChg', function ( hue )
+		{
+			sp.write( new Buffer( 'h' + hue ) );
+		} );
 		
 		socket.on( 'eConn', function ()
 		{

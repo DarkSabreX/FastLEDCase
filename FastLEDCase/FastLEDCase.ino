@@ -253,7 +253,11 @@ void change_mode(int newMode, int mc) {
 			eleds.fill_solid(CRGB(0, 0, 0));
 			ileds.fill_solid(CRGB(0, 0, 0));
 			FastLED.show();
-			//Serial.println("---Mode 0 - off---");
+			Serial.print("---Mode 0 - off---");
+			Serial.print(",");
+			Serial.print("0");
+			Serial.print(",");
+			Serial.println();
 			break;
 			/*drawConfetti(frontRight, FR_LENGTH); 
 			drawJuggle(topRight, TR_LENGTH); 
@@ -265,19 +269,36 @@ void change_mode(int newMode, int mc) {
 			//leds.fill_solid(CRGB(255, 255, 255));
 			eleds.fill_solid(CRGB(255, 255, 255));
 			ileds.fill_solid(CRGB(255, 255, 255));
-			FastLED.show(); 
+			FastLED.show();
+			Serial.print("---Mode 1 - All On---");
+			Serial.print(",");
+			Serial.print("1");
+			Serial.print(",");
+			Serial.println();
 			break; 
 		//Fill All strips with a Rainbow, no Animation   
 		case  2: 
 			drawRainbow(); 
-			FastLED.show(); 
+			FastLED.show();
+			Serial.print("---Mode 2 - Static Rainbow---");
+			Serial.print(",");
+			Serial.print("2");
+			Serial.print(",");
+			Serial.println();
 			break;
 		//Fill All Strips with a solid color
 		case  3: 
 			//leds.fill_solid(CHSV(gHue, gSat, gBrt));
 			eleds.fill_solid(CHSV(gHue, gSat, gBrt));
 			ileds.fill_solid(CHSV(gHue, gSat, gBrt));
-			FastLED.show(); 
+			FastLED.show();
+			Serial.print("---Mode 3 - Static Selectable---");
+			Serial.print(",");
+			Serial.print("3");
+			Serial.print(",");
+			Serial.print(gHue);
+			Serial.print(",");
+			Serial.println(gSat);
 			break;
 			//Animations
 		//Fill All strips with an animated rainbow
